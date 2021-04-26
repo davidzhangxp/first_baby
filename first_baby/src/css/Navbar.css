@@ -1,0 +1,54 @@
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 0.5rem;
+    border-bottom: 0.1rem #c0c0c0 solid;
+    }
+
+.navbar-items{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    flex-direction: row;
+    margin-left: 1rem;
+}  
+
+
+.brandlink{
+    color: #F4A261;
+}
+.signin{
+    text-decoration: none;
+    border: tomato 0.1rem solid;
+    border-radius:1.5rem;
+    font-size:1.6rem;
+    font-weight:bold;
+    color:black;
+    padding: 0.9rem;
+    
+    margin: 0.5rem;
+}
+.signup{
+    text-decoration: none;
+    border: tomato 0.1rem solid;
+    border-radius:1.5rem;
+    font-size:1.6rem;
+    font-weight:bold;
+    color:darkgray;
+    padding: 0.9rem;
+
+    margin: 0.5rem;
+}
+.profile{
+    text-decoration: none;
+    border: red 0.1rem solid;
+    border-radius:1.5rem;
+    
+    font-size:1.6rem;
+    font-weight:bold;
+    color:darkgray;
+    padding: 0.9rem;
+    
+    margin: 0.5rem;
+}
