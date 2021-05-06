@@ -14,8 +14,8 @@ import { ProductDetail } from "./components/ProductDetail";
 import { Profile } from "./components/Profile";
 import { Shipping } from "./components/Shipping";
 import Payment from "./components/Payment";
-
-
+import Order from "./components/Order";
+import Dashboard from "./components/Dashboard";
 
 
 export class App extends Component {
@@ -38,7 +38,7 @@ export class App extends Component {
         <CartContextProvider>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={()=><Home user={this.state.user}/>} />
+              <Route exact path="/" component={()=><Home/>} />
               <Route path="/addproducts" component={AddProducts} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
@@ -48,6 +48,8 @@ export class App extends Component {
               <Route path="/products/:productId" component={ProductDetail}/>
               <Route path="/shipping" component={Shipping}/>
               <Route path="/payment" component={Payment}/>
+              <Route path="/order" component={Order}/>
+              <Route path="/dashboard" component={Dashboard}/>
             </Switch>
           </BrowserRouter>
         </CartContextProvider>

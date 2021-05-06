@@ -19,7 +19,7 @@ export const setUserInfo = ({
 export const getUserInfo = () =>{
     return localStorage.getItem('userInfo') ?
         JSON.parse(localStorage.getItem('userInfo')):
-        {_id:'',userName:'',email:'',password:''}
+        {_id:'',userName:'',email:'',password:'',admin:false,verify:false}
 }
 
 export const clearUser = ()=>{
@@ -76,11 +76,11 @@ export const clearCartItems = ()=>{
 
 export const setOrder = ({
     orderItems = [],
-        shipping = null,
-        itemsPrice = '',
-        shippingPrice = '',
-        taxPrice = '',
-        totalPrice = '',
+    shipping = null,
+    itemsPrice = '',
+    shippingPrice = '',
+    taxPrice = '',
+    totalPrice = '',
 
 })=>{
     localStorage.setItem('order',JSON.stringify({
@@ -95,7 +95,7 @@ export const setOrder = ({
 }
 
 export const getOrder =()=>{
-    const shipping = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order') ): {
+    const order = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order') ): {
         orderItems:[],
         shipping:null,
         itemsPrice:'',
@@ -104,5 +104,56 @@ export const getOrder =()=>{
         totalPrice:'',
 
     }
-    return shipping
+    return order;
+}
+
+export const setPaidOrder = ({
+    userId = '',
+    userName = '',
+    orderItems = [],
+    shipping = null,
+    itemsPrice = '',
+    shippingPrice = '',
+    taxPrice = '',
+    totalPrice = '',
+    isPaid = false,
+    orderID = '',
+    date = Date(),
+    shippingout = false,
+    delivered = false,
+})=>{
+    localStorage.setItem('paidOrder',JSON.stringify({
+        userId,
+        userName,
+        orderItems,
+        shipping,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+        isPaid,
+        orderID,
+        date,
+        shippingout,
+        delivered
+    }))
+}
+
+export const getPaidOrder =()=>{
+    const order = localStorage.getItem('paidOrder') ? JSON.parse(localStorage.getItem('paidOrder') ): {
+        userId:'',
+        userName:'',
+        orderItems:[],
+        shipping:null,
+        itemsPrice:'',
+        shippingPrice:'',
+        taxPrice:'',
+        totalPrice:'',
+        isPaid:false,
+        orderID:'',
+        date:Date(),
+        shippingout:false,
+        delivered:false
+    }
+    return order;
 }

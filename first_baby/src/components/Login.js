@@ -28,11 +28,22 @@ export const Login = () => {
         db.collection("users").doc(res.user.uid).get()
         .then((doc) => {
           if (doc.exists){
+            console.log(doc.data())
             if(doc.data().verify === true){
-              setUserInfo({verify:true})
+              setUserInfo({
+                _id:doc.data().objectId,
+                userName: doc.data().userName,
+                email: doc.data().email,
+                admin: doc.data().admin,
+                verify:true})
             }else{
-              db.collection("user").doc(res.user.uid).update({verify:true})
-              setUserInfo({verify:true})
+              db.collection("users").doc(res.user.uid).update({verify:true})
+              setUserInfo({
+                _id:doc.data().objectId,
+                userName: doc.data().userName,
+                email: doc.data().email,
+                admin: doc.data().admin,
+                verify:true})
             }
           }
         })

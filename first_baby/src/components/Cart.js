@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { db } from "../config/Config";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getUserInfo, setCartItems } from "../localStorage";
 
@@ -68,6 +68,29 @@ export class Cart extends Component {
       const productLeft = this.state.products.filter((x) => x.productId !== id);
       this.setState({ products: [product, ...productLeft] });
     };
+    const minusProductQty = (id) => {
+      const product = this.state.products.find((x) => x.productId === id);
+      const basket = this.state.baskets.find((x) => x.productId === id);
+      basket.productQty -= 1;
+      if(basket.productQty > 0){
+        db.collection("basket")
+        .doc(basket.id)
+        .update({ productQty: basket.productQty });
+      product.productQty -= 1;
+      const productLeft = this.state.products.filter((x) => x.productId !== id);
+      this.setState({ products: [product, ...productLeft] });
+      }else{
+        const basket = this.state.baskets.find(
+          (x) => x.productId === id
+        );
+        db.collection("basket").doc(basket.id).delete();
+        const basketdata = this.state.products.filter(
+          (x) => x.productId !== id
+        );
+        this.setState({ products: basketdata });
+      }
+      
+    };
     const cartItems = this.state.products;
     setCartItems(cartItems);
     if (cartItems.length === 0) {
@@ -106,6 +129,7 @@ export class Cart extends Component {
                       <div>{item.productName}</div>
                       <div className="cart-detail">
                         Qty:
+                        <FaMinus onClick={() => minusProductQty(item.productId)} />
                         {item.productQty}
                         <FaPlus onClick={() => addProductQty(item.productId)} />
                         <button
@@ -132,7 +156,7 @@ export class Cart extends Component {
               $
               {cartItems.reduce((a, c) => a + c.productPrice * c.productQty, 0)}
             </h3>
-            <Link to="/shipping">
+            <Link to="/payment">
               <button className="primary fw" id="checkout-button">
                 Processed to checkout
               </button>

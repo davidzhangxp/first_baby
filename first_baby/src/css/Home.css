@@ -361,3 +361,28 @@ td{
   margin:0 auto;
   display:block;
 }
+
+/*Stripe*/
+.FormGroup{
+  margin: 20px;;
+  padding:0;
+  background-color:  #7795f8;
+  border-style: none;
+  will-change: opacity, transform;
+  border-radius: 4px;
+}
+.FormRow{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 15px;
+  border-top: 1px solid #819efc;
+}
+.stripe_btn{
+  margin-top: 10px;
+  width:100%;
+  background-color:#f0c040;
+  font: 1.6rem Helvetica, Arial;
+  padding: 0.2rem;
+}

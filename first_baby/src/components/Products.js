@@ -5,13 +5,14 @@ import { ProductsContext } from "../global/ProductsContext";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../config/Config";
 import { useAlert } from "react-alert";
+import { getUserInfo } from "../localStorage";
 
-export const Products = ({ user }) => {
+export const Products = () => {
   const alert = useAlert();
   const { products } = useContext(ProductsContext);
   const [categories, setCategory] = useState([]);
   const [productDic, setProductDic] = useState([]);
-
+  const {_id} = getUserInfo()
   useEffect(() => {
     products.forEach((product) => {
       const key = product.category;
@@ -29,16 +30,16 @@ export const Products = ({ user }) => {
       preProductDic[key] = preproducts;
       setProductDic(preProductDic);
     });
-  }, []);
+  },[]);
   // const { dispatch } = useContext(CartContext);
   const addToCart = (e) => {
     let productId = e.target.value;
 
-    if (user == null) {
+    if (_id === '') {
       window.location = "/login";
     } else {
       db.collection("basket")
-        .where("userId", "==", user.objectId)
+        .where("userId", "==", _id)
         .where("productId", "==", productId)
         .get()
         .then((snapshot) => {
@@ -52,7 +53,7 @@ export const Products = ({ user }) => {
             const basketId = uuidv4();
             db.collection("basket").doc(basketId).set({
               id: basketId,
-              userId: user.objectId,
+              userId: _id,
               productId: productId,
               productQty: 1,
             });
@@ -64,9 +65,9 @@ export const Products = ({ user }) => {
   return (
     <div>
       {categories && categories.sort().map((category) => (
-        <div>
-        <h2 key={category}>{category}</h2>
-        <ul class="products">
+        <div  key={category}>
+        <h2>{category}</h2>
+        <ul className="products">
         {productDic[category] && productDic[category].sort((a,b)=> (a.productId > b.productId ? 1 : -1))
         .map((product)=>(
           <li key={product.productId}>

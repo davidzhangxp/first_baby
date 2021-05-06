@@ -5,13 +5,15 @@ import { clearUser, getUserInfo } from "../localStorage";
 import { db } from "../config/Config";
 import * as moment from 'moment'
 import { Navbar } from './Navbar'
+import { Link } from "react-router-dom";
+
 
 export const Profile = () => {
-  const { _id, userName, email } = getUserInfo();
+  const { _id, userName, email, admin } = getUserInfo();
   const [orders, setOrders] = useState([]);
-  const [useName,setUseName] = useState('')
   const [orderDetail, setOrderDetail] = useState(null);
   const alert = useAlert();
+  
   const logout = () => {
     firebase
       .auth()
@@ -48,6 +50,7 @@ const dateFormatter = (date)=>{
   const newDate = moment(date).format("DD-MM-YYYY")
   return newDate
 }
+
   return (
     <div>
     <Navbar />
@@ -59,19 +62,24 @@ const dateFormatter = (date)=>{
                 <h2>User Profile</h2>
               </li>
               <li>
-                <label htmlFor="name">Name</label>
-                <input type="name" name="name" id="name" onChange={(e)=>setUseName(e.target.value)} value={userName} />
+                <label htmlFor="name">Name:{userName}</label>
               </li>
               <li>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" onChange={(e)=>setUseName(e.target.value)} value={email} />
+                <label htmlFor="email">Email:{email}</label>
               </li>
 
               <li>
                 <button type="button" id="signout-button" onClick={logout}>
                   Sign out
                 </button>
+              </li>      
+              {admin && 
+               <li>
+              <Link to="/dashboard"><button type="button" id="signout-button" className="fw">
+                  Admin Dashboard
+                </button></Link>
               </li>
+              }
             </ul>
           </div>
         </div>

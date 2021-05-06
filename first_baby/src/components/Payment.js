@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { getCartItems, getShipping, setOrder } from "../localStorage";
-import PaypalButton from "./PaypalButton";
+import { getCartItems, setShipping, getShipping, setOrder } from "../localStorage";
+import StripeContainer from './StripeContainer.js'
 
 
 export class Payment extends Component {
-  state = { paymentMethod: "" };
+  state = { paymentMethod: false };
+  componentDidMount(){
+    setShipping({
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      country: "USA",
+      pickup: true,
+    });
+  }
 
   render() {
     const orderItems = getCartItems();
@@ -29,12 +40,10 @@ export class Payment extends Component {
         totalPrice:totalPrice,
         paymentMethod:this.state.paymentMethod,
       })
-      this.setState({paymentMethod:"Paypal"})
+      this.setState({paymentMethod:true})
 
     };
-    if (this.state.paymentMethod === "Paypal"){
-      return <PaypalButton/>
-    }
+
     return (
       <div>
         <div className="back-to-result">
@@ -43,7 +52,7 @@ export class Payment extends Component {
         <div className="order">
           <div className="order-info">
             <div>
-            {shipping.pickup ? <div><h2>Pickup</h2></div> : 
+            {shipping.pickup ? <div><h2>Pickup: @Address: 19611 Fisher Ave, Poolesville, MD 20837</h2></div> : 
               <div>
               <h2>Shipping</h2>
                 {shipping.address},{shipping.city},{shipping.postalCode}
@@ -100,7 +109,7 @@ export class Payment extends Component {
             </ul>
           </div>
         </div>
-        
+        {this.state.paymentMethod && <StripeContainer />}
       </div>
     );
   }
