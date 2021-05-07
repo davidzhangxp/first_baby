@@ -85,9 +85,13 @@ export default function PaymentForm() {
   };
 
   return (
-      <div className="FormGroup">
+    <div className="stripe-container">
+    <div className="stripe-note">Please insert your creadit card number, expire date and CVC</div>
+      <div>
+
         {!success ? (
           <form onSubmit={handleSubmit}>
+          <div  className="FormGroup">
             <CardElement
               options={{
                 style: {
@@ -105,15 +109,19 @@ export default function PaymentForm() {
                 hidePostalCode:true
               }}
             />
+
             <button className="stripe_btn" type="submit" disabled={!stripe}>
               Pay
             </button>
+            </div>
+            
           </form>
         ) : (
           <div>
             <h2>Congrats! you just paid for this order</h2>
           </div>
         )}
+      </div>
       </div>
   );
 }

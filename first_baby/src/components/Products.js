@@ -5,14 +5,15 @@ import { ProductsContext } from "../global/ProductsContext";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../config/Config";
 import { useAlert } from "react-alert";
-import { getUserInfo } from "../localStorage";
+import { getCount, getUserInfo, setCount } from "../localStorage";
+import dining from "../images/dining.jpg";
 
 export const Products = () => {
   const alert = useAlert();
   const { products } = useContext(ProductsContext);
   const [categories, setCategory] = useState([]);
   const [productDic, setProductDic] = useState([]);
-  const {_id} = getUserInfo()
+  const { _id } = getUserInfo();
   useEffect(() => {
     products.forEach((product) => {
       const key = product.category;
@@ -30,12 +31,12 @@ export const Products = () => {
       preProductDic[key] = preproducts;
       setProductDic(preProductDic);
     });
-  },[]);
+  }, []);
   // const { dispatch } = useContext(CartContext);
   const addToCart = (e) => {
     let productId = e.target.value;
 
-    if (_id === '') {
+    if (_id === "") {
       window.location = "/login";
     } else {
       db.collection("basket")
@@ -58,45 +59,67 @@ export const Products = () => {
               productQty: 1,
             });
             alert.success("product add to your cart");
+            const count = getCount()
+            var newCount = count + 1
+            setCount(newCount)
           }
         });
     }
   };
   return (
     <div>
-      {categories && categories.sort().map((category) => (
-        <div  key={category}>
-        <h2>{category}</h2>
-        <ul className="products">
-        {productDic[category] && productDic[category].sort((a,b)=> (a.productId > b.productId ? 1 : -1))
-        .map((product)=>(
-          <li key={product.productId}>
-                <div className="product">
-                  <Link to={{ pathname: `/products/${product.productId}` }}>
-                    <img src={product.productImg} alt={product.ProductName} />
-                  </Link>
-
-                  <div className="product-info">
-                    <div className="product-name">{product.productName}</div>
-                    <div className="product-price">${product.productPrice}</div>
-                  </div>
-
-                  <div>
-                    <button
-                      className="fw"
-                      value={product.productId}
-                      onClick={addToCart}
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                </div>
-              </li>
-        ))}
-        </ul>
-        <hr></hr>
+      <div className="product-container">
+        <div className="head-container">
+          <div>
+            <img src={dining} alt="" />
+          </div>
         </div>
-      ))}
+        {categories &&
+          categories.sort().map((category) => (
+            <div key={category}>
+              <h2>{category}</h2>
+              <ul className="products">
+                {productDic[category] &&
+                  productDic[category]
+                    .sort((a, b) => (a.productId > b.productId ? 1 : -1))
+                    .map((product) => (
+                      <li key={product.productId}>
+                        <div className="product">
+                          <Link
+                            to={{ pathname: `/products/${product.productId}` }}
+                          >
+                            <img
+                              src={product.productImg}
+                              alt={product.ProductName}
+                            />
+                          </Link>
+
+                          <div className="product-info">
+                            <div className="product-name">
+                              {product.productName}
+                            </div>
+                            <div className="product-price">
+                              ${product.productPrice}
+                            </div>
+                          </div>
+
+                          <div>
+                            <button
+                              className="fw"
+                              value={product.productId}
+                              onClick={addToCart}
+                            >
+                              Add To Cart
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+              </ul>
+              <hr></hr>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

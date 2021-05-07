@@ -114,3 +114,12 @@ button.second{
 .message_bar >div >*{
   margin:2rem;
 }
+footer{
+  bottom: 0;
+  font-size: 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 50px;
+}

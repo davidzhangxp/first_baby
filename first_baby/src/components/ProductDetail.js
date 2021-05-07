@@ -5,6 +5,7 @@ import {  db } from "../config/Config";
 import { v4 as uuidv4 } from 'uuid';
 import { ShowAlert } from "./ShowAlert";
 import { getUserInfo } from "../localStorage";
+import {Navbar} from './Navbar'
 
 
 export class ProductDetail extends Component {
@@ -76,8 +77,9 @@ export class ProductDetail extends Component {
 
     return (
       <div className="content">
+      <Navbar />
             <div className="back-to-result">
-                <Link to="/"> Back to Home </Link>
+                <Link to="/"> Back</Link>
             </div>
             <div className="details">
                 <div className="details-image">
@@ -85,7 +87,7 @@ export class ProductDetail extends Component {
                 </div>
                 <div className="details-info">
                     <ul>
-                        <li><h2>{product.productName}</h2></li>
+                        <li><h2>Name:{product.productName}</h2></li>
 
                         <li>
                             Price: <strong>${product.productPrice}</strong>
@@ -100,8 +102,8 @@ export class ProductDetail extends Component {
                 </div>
                 <div className="details-action">
                     <ul>
-                        <li>{product.productName}</li>
-                        
+                        <li>Name:{product.productName}</li>
+                        <li>Price:{product.productPrice}</li>
                         <li>
                         <button id="add-button" className="fw primary" onClick={addToCart}>Add to cart</button>
                         </li>

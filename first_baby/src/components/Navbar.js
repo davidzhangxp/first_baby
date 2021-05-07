@@ -5,7 +5,7 @@ import { Icon } from "react-icons-kit";
 import { home } from "react-icons-kit/icomoon/home";
 import { FaShoppingCart } from "react-icons/fa";
 import firebase from "firebase";
-import { clearUser, getUserInfo } from "../localStorage";
+import { clearUser, getCount, getUserInfo } from "../localStorage";
 import { useAlert } from "react-alert";
 
 
@@ -25,7 +25,7 @@ export const Navbar = () => {
         alert.error(error.message);
       });
   };
- 
+
   return (
     <div className="navbar">
       <div className="brand">
@@ -49,10 +49,10 @@ export const Navbar = () => {
         </Link>
         <Link to="/cart">
           <FaShoppingCart
-            style={{ color: "blue", cursor: "pointer" }}
+            style={{ color: "purple", cursor: "pointer" }}
             size="3rem"
           />
-        </Link>
+          </Link>
         {_id !== "" ? (
           <Link to="/profile" className="profile">
             {userName}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { getCartItems, setShipping, getShipping, setOrder } from "../localStorage";
+import { Navbar } from "./Navbar";
 import StripeContainer from './StripeContainer.js'
 
 
@@ -46,8 +47,9 @@ export class Payment extends Component {
 
     return (
       <div>
+      <Navbar/>
         <div className="back-to-result">
-          <Link to="/"> Back to Home </Link>
+          <Link to="/cart"> Back to Cart </Link>
         </div>
         <div className="order">
           <div className="order-info">
@@ -104,7 +106,7 @@ export class Payment extends Component {
                 <div>${totalPrice}</div>
               </li>
               <li>
-              <button className="fw" onClick={createOrder}>Place Order</button>
+              <button className="fw" style={{ backgroundColor: "green", color: "white" }} onClick={createOrder}>Pay Order</button>
               </li>
             </ul>
           </div>

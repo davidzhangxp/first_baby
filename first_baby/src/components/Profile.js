@@ -52,7 +52,7 @@ const dateFormatter = (date)=>{
 }
 
   return (
-    <div>
+    <div className="profile-container">
     <Navbar />
       <div className="profile">
         <div className="profile-info">
@@ -127,7 +127,7 @@ const dateFormatter = (date)=>{
       </div>
       {orderDetail && (
         <div className="show_order_detail">
-          <div className="cart-list">
+          <div className="order-cart-list">
             <ul className="cart-list-container">
               <li>
                 <h3>shopping cart</h3>
@@ -149,10 +149,9 @@ const dateFormatter = (date)=>{
               ))}
             </ul>
             <div className="close_btn_style">
-            <button  className="close_btn" onClick={closeDetail}>Close</button>
+              <button  className="close_btn" onClick={closeDetail}>Close</button>
+            </div>
           </div>
-          </div>
-
         </div>
       )}
     </div>

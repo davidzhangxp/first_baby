@@ -55,6 +55,7 @@ export default function Dashboard() {
             <thead>
               <tr>
                 <th> ORDER ID</th>
+                <th> USER NAME</th>
                 <th> DATE </th>
                 <th> TOTAL</th>
                 <th> PICKUP</th>
@@ -76,6 +77,7 @@ export default function Dashboard() {
                     >
                       {order.orderID}
                     </td>
+                    <td>{order.userName || "nobody"}</td>
                     <td>
                       {order.date ? dateFormatter(order.date) : "not paid yet"}
                     </td>
@@ -101,7 +103,7 @@ export default function Dashboard() {
         </div>
         {orderDetail && (
           <div className="show_order_detail">
-            <div className="cart-list">
+            <div className="order-cart-list">
               <ul className="cart-list-container">
                 <li>
                   <h3>shopping cart</h3>
